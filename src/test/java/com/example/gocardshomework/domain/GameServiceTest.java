@@ -26,6 +26,7 @@ class GameServiceTest {
   private static final List<Card> DECK_OF_CARDS = List.of(new Card(Value.QUEEN, Suit.CLUB));
   private static final String GAME_ID = "gameId321";
   private static final String DECK_ID = "deckId321";
+  private static final String PLAYER_ID = "player567";
 
   @Mock
   private GameRepository gameRepository;
@@ -74,6 +75,16 @@ class GameServiceTest {
     gameService.addDeckToGame(GAME_ID, DECK_ID);
 
     verify(game).addDeck(DECK_OF_CARDS);
+    verify(gameRepository).updateGame(game);
+  }
+
+  @Test
+  void givenGameIdAndPlayerId_whenAddPlayer_thenPlayerIsAddedToGame() {
+    given(gameRepository.getGameById(GAME_ID)).willReturn(game);
+
+    gameService.addPlayer(GAME_ID, PLAYER_ID);
+
+    verify(game).addPlayer(PLAYER_ID);
     verify(gameRepository).updateGame(game);
   }
 }

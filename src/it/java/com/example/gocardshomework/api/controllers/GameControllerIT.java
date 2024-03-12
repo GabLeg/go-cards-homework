@@ -80,4 +80,20 @@ public class GameControllerIT extends IntegrationTestParent {
 
     this.mockMvc.perform(put("/api/v1/games/%s/decks/%s".formatted(GAME_ID, UNKNOWN_DECK_ID))).andExpect(status().isNotFound());
   }
+
+  @Test
+  void givenGameIdAndPlayerId_whenAddPlayer_thenReturnHttp204() throws Exception {
+    gameDatastore.put(GAME_ID, new Game(GAME_ID));
+
+    this.mockMvc.perform(put("/api/v1/games/%s/players/%s".formatted(GAME_ID, PLAYER_ID))).andExpect(status().isNoContent());
+  }
+
+  @Test
+  void givenPlayerAlreadyInGame_whenAddPlayer_thenReturnHttp409() throws Exception {
+    Game game = new Game(GAME_ID);
+    game.addPlayer(PLAYER_ID);
+    gameDatastore.put(GAME_ID, game);
+
+    this.mockMvc.perform(put("/api/v1/games/%s/players/%s".formatted(GAME_ID, PLAYER_ID))).andExpect(status().isConflict());
+  }
 }

@@ -44,4 +44,10 @@ public class GameController {
   public void addDeckToGame(@PathVariable("gameId") String gameId, @PathVariable("deckId") String deckId) {
     gameService.addDeckToGame(gameId, deckId);
   }
+
+  @PutMapping("/{gameId}/players/{playerId}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void addPlayer(@PathVariable("gameId") String gameId, @PathVariable("playerId") String playerId) {
+    gameService.addPlayer(gameId, playerId);
+  }
 }

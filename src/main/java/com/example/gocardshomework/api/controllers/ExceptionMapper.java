@@ -1,5 +1,6 @@
 package com.example.gocardshomework.api.controllers;
 
+import com.example.gocardshomework.domain.exceptions.PlayerAlreadyInGameException;
 import com.example.gocardshomework.infra.exceptions.DeckNotAvailableException;
 import com.example.gocardshomework.infra.exceptions.GameAlreadyExistsException;
 import com.example.gocardshomework.infra.exceptions.GameNotAvailableException;
@@ -24,7 +25,12 @@ public class ExceptionMapper extends ResponseEntityExceptionHandler {
   }
 
   @ExceptionHandler(value = GameNotAvailableException.class)
-  public ResponseEntity<String> GameNotAvailable(RuntimeException exception, WebRequest request) {
+  public ResponseEntity<String> gameNotAvailable(RuntimeException exception, WebRequest request) {
     return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+  }
+
+  @ExceptionHandler(value = PlayerAlreadyInGameException.class)
+  public ResponseEntity<String> playerAlreadyInGame(RuntimeException exception, WebRequest request) {
+    return new ResponseEntity<>(exception.getMessage(), HttpStatus.CONFLICT);
   }
 }

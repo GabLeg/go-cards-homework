@@ -36,4 +36,10 @@ public class GameService {
     game.addDeck(newDeck);
     gameRepository.updateGame(game);
   }
+
+  public void addPlayer(String gameId, String playerId) {
+    Game game = gameRepository.getGameById(gameId);
+    game.addPlayer(playerId);
+    gameRepository.updateGame(game);
+  }
 }
