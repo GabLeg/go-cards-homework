@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -52,5 +51,19 @@ class StatisticsServiceTest {
     assertThat(playerStatistics.get(0).getCardsValue()).isEqualTo(Value.KING.getValue() + Value.QUEEN.getValue());
     assertThat(playerStatistics.get(1).getPlayerId()).isEqualTo(PLAYER_ID1);
     assertThat(playerStatistics.get(1).getCardsValue()).isEqualTo(Value.ACE.getValue() + Value.TWO.getValue());
+  }
+
+  @Test
+  void givenGameIdWithUndealtCards_whenCountUndealtCards_thenReturnUndeltStatistics() {
+    List<Card> undealtCards = List.of(new Card(Value.ACE, Suit.SPADES),
+                                      new Card(Value.ACE, Suit.CLUBS),
+                                      new Card(Value.ACE, Suit.DIAMONDS),
+                                      new Card(Value.TWO, Suit.DIAMONDS));
+    given(gameRepository.getGameById(GAME_ID)).willReturn(game);
+    given(game.getAvailableCards()).willReturn(undealtCards);
+
+    String result = statisticsService.countUndealtCards(GAME_ID);
+
+    assertThat(result).isEqualTo("1 spades, 1 clubs, 2 diamonds, 0 hearths");
   }
 }

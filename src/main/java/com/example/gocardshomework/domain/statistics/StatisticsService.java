@@ -29,6 +29,25 @@ public class StatisticsService {
     return sortFromBestToWorst(playerStatistics);
   }
 
+  public String countUndealtCards(String gameId) {
+    int spadesCount = 0;
+    int clubsCount = 0;
+    int diamondsCount = 0;
+    int hearthsCount = 0;
+    Game game = gameRepository.getGameById(gameId);
+    List<Card> undealtCards = new ArrayList<>(game.getAvailableCards());
+    for (Card undealtCard : undealtCards) {
+      switch (undealtCard.getSuit()) {
+        case SPADES -> spadesCount++;
+        case CLUBS -> clubsCount++;
+        case DIAMONDS -> diamondsCount++;
+        default -> hearthsCount++;
+      }
+    }
+
+    return "%d spades, %d clubs, %d diamonds, %d hearths".formatted(spadesCount, clubsCount, diamondsCount, hearthsCount);
+  }
+
   private int sumCardsValue(List<Card> cards) {
     return cards.stream().mapToInt(Card::getIntValue).sum();
   }

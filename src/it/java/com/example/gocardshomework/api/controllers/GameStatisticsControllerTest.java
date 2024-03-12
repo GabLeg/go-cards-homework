@@ -45,4 +45,12 @@ class GameStatisticsControllerTest extends IntegrationTestParent {
     assertThat(statistics.get(0).getCardsValue()).isEqualTo(Value.KING.getValue());
   }
 
+  @Test
+  void givenGameId_whenGetUndeltStatistic_thenReturnHttp200() throws Exception {
+    Game game = new Game(GAME_ID);
+    game.addDeck(EXISTING_DECK);
+    gameDatastore.put(GAME_ID, game);
+
+    this.mockMvc.perform(get("/api/v1/game-statistics/%s/undealt".formatted(GAME_ID))).andExpect(status().isOk());
+  }
 }

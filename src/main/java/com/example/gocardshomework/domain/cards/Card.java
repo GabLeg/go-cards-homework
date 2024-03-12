@@ -14,6 +14,10 @@ public class Card {
     return value.getValue();
   }
 
+  public Suit getSuit() {
+    return suit;
+  }
+
   @Override
   public String toString() {
     return "%s of %s".formatted(value.getName(), suit.toString().toLowerCase());
