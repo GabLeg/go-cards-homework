@@ -3,8 +3,8 @@ package com.example.gocardshomework.api.controllers;
 import com.example.gocardshomework.api.dto.GameDto;
 import com.example.gocardshomework.config.mapper.ModelMapper;
 import com.example.gocardshomework.domain.cards.Card;
-import com.example.gocardshomework.domain.game.GameService;
 import com.example.gocardshomework.domain.game.Game;
+import com.example.gocardshomework.domain.game.GameService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,11 +15,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/games")
 public class GameController {
 
-  private GameService gameService;
-  private ModelMapper mapper;
+  private final GameService gameService;
+  private final ModelMapper mapper;
 
-  public GameController(GameService gameService,
-                        ModelMapper modelMapper) {
+  public GameController(GameService gameService, ModelMapper modelMapper) {
     this.gameService = gameService;
     this.mapper = modelMapper;
   }
@@ -27,7 +26,7 @@ public class GameController {
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public GameDto createGame() {
-    Game newGame =  gameService.createGame();
+    Game newGame = gameService.createGame();
     return mapper.map(newGame, GameDto.class);
   }
 

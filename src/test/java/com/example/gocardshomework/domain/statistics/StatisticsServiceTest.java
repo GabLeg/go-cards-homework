@@ -64,6 +64,6 @@ class StatisticsServiceTest {
 
     String result = statisticsService.countUndealtCards(GAME_ID);
 
-    assertThat(result).isEqualTo("1 spades, 1 clubs, 2 diamonds, 0 hearths");
+    assertThat(result).isEqualTo("1 spades, 1 clubs, 2 diamonds, 0 hearts");
   }
 }

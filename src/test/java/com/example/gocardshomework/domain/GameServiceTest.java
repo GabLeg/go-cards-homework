@@ -8,6 +8,7 @@ import com.example.gocardshomework.domain.game.GameFactory;
 import com.example.gocardshomework.domain.game.GameService;
 import com.example.gocardshomework.infra.DeckRepository;
 import com.example.gocardshomework.infra.GameRepository;
+import com.example.gocardshomework.infra.event.EventPublisher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,13 +36,15 @@ class GameServiceTest {
   @Mock
   private DeckRepository deckRepository;
   @Mock
+  private EventPublisher eventPublisher;
+  @Mock
   private Game game;
 
   private GameService gameService;
 
   @BeforeEach
   void setUp() {
-    gameService = new GameService(gameRepository, gameFactory, deckRepository);
+    gameService = new GameService(gameRepository, gameFactory, deckRepository, eventPublisher);
   }
 
   @Test
@@ -55,6 +58,9 @@ class GameServiceTest {
 
   @Test
   void whenCreateGame_thenGameIsSaved() {
+    given(gameFactory.createGame()).willReturn(game);
+    given(game.getGameId()).willReturn(GAME_ID);
+
     Game game = gameService.createGame();
 
     verify(gameRepository).saveNewGame(game);

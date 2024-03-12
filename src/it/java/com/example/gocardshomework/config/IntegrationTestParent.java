@@ -45,6 +45,8 @@ public abstract class IntegrationTestParent {
   protected Map<String, Game> gameDatastore;
   @Autowired
   protected Map<String, List<Card>> deckDatastore;
+  @Autowired
+  protected List<String> eventDatastore;
 
   protected MockMvc mockMvc;
 
@@ -53,6 +55,7 @@ public abstract class IntegrationTestParent {
     this.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     gameDatastore.clear();
     deckDatastore.clear();
+    eventDatastore.clear();
     reset(idGenerator);
   }
 }
