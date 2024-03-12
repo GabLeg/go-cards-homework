@@ -31,11 +31,6 @@ public class GameController {
     return mapper.map(newGame, GameDto.class);
   }
 
-  @GetMapping("/{gameId}")
-  public String retrieveGameInformation(@PathVariable("gameId") String gameId) {
-    return "";
-  }
-
   @DeleteMapping("/{gameId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteGame(@PathVariable("gameId") String gameId) {
