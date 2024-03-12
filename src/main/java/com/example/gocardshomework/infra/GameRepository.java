@@ -2,6 +2,7 @@ package com.example.gocardshomework.infra;
 
 import com.example.gocardshomework.domain.game.Game;
 import com.example.gocardshomework.infra.exceptions.GameAlreadyExistsException;
+import com.example.gocardshomework.infra.exceptions.GameNotAvailableException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +17,7 @@ public class GameRepository {
     this.datastore = datastore;
   }
 
-  public synchronized void saveNewGame(Game game) {
+  public void saveNewGame(Game game) {
     String gameId = game.getGameId();
     if (datastore.containsKey(gameId)) {
       throw new GameAlreadyExistsException(gameId);
@@ -24,7 +25,19 @@ public class GameRepository {
     datastore.put(gameId, game);
   }
 
+  public void updateGame(Game game) {
+    datastore.replace(game.getGameId(), game);
+  }
+
   public void deleteGame(String gameId) {
     datastore.remove(gameId);
+  }
+
+  public Game getGameById(String gameId) {
+    Game game = datastore.get(gameId);
+    if (game == null) {
+      throw new GameNotAvailableException(gameId);
+    }
+    return game;
   }
 }
