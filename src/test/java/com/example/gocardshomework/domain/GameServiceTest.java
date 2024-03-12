@@ -16,6 +16,8 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 class GameServiceTest {
 
+  private static final String GAME_ID = "gameId321";
+
   @Mock
   private GameRepository gameRepository;
   @Mock
@@ -46,4 +48,10 @@ class GameServiceTest {
     verify(gameRepository).saveNewGame(game);
   }
 
+  @Test
+  void givenGameId_whenDeleteGame_thenCallRepository() {
+    gameService.deleteGame(GAME_ID);
+
+    verify(gameRepository).deleteGame(GAME_ID);
+  }
 }

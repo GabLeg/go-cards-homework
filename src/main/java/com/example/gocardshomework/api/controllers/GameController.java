@@ -35,7 +35,8 @@ public class GameController {
   }
 
   @DeleteMapping("/{gameId}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteGame(@PathVariable("gameId") String gameId) {
-
+    gameService.deleteGame(gameId);
   }
 }
