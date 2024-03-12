@@ -40,4 +40,8 @@ public class Game {
     }
     players.put(playerId, new ArrayList<>());
   }
+
+  public void removePlayer(String playerId) {
+    players.remove(playerId);
+  }
 }

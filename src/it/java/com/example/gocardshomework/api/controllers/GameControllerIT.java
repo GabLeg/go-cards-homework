@@ -96,4 +96,13 @@ public class GameControllerIT extends IntegrationTestParent {
 
     this.mockMvc.perform(put("/api/v1/games/%s/players/%s".formatted(GAME_ID, PLAYER_ID))).andExpect(status().isConflict());
   }
+
+  @Test
+  void givenGameIdAndPlayerId_whenRemovePlayer_thenReturnHttp204() throws Exception {
+    Game game = new Game(GAME_ID);
+    game.addPlayer(PLAYER_ID);
+    gameDatastore.put(GAME_ID, game);
+
+    this.mockMvc.perform(delete("/api/v1/games/%s/players/%s".formatted(GAME_ID, PLAYER_ID))).andExpect(status().isNoContent());
+  }
 }

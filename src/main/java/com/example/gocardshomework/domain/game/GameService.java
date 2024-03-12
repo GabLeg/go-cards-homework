@@ -42,4 +42,10 @@ public class GameService {
     game.addPlayer(playerId);
     gameRepository.updateGame(game);
   }
+
+  public void removePlayer(String gameId, String playerId) {
+    Game game = gameRepository.getGameById(gameId);
+    game.removePlayer(playerId);
+    gameRepository.updateGame(game);
+  }
 }

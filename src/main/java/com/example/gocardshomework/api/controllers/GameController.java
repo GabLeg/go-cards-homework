@@ -50,4 +50,10 @@ public class GameController {
   public void addPlayer(@PathVariable("gameId") String gameId, @PathVariable("playerId") String playerId) {
     gameService.addPlayer(gameId, playerId);
   }
+
+  @DeleteMapping("/{gameId}/players/{playerId}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void removePlayer(@PathVariable("gameId") String gameId, @PathVariable("playerId") String playerId) {
+    gameService.removePlayer(gameId, playerId);
+  }
 }

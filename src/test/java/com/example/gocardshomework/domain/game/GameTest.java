@@ -53,4 +53,13 @@ class GameTest {
 
     assertThrows(PlayerAlreadyInGameException.class, addPlayer);
   }
+
+  @Test
+  void givenExistingPlayer_whenRemovePlayer_thenPlayerIsRemoved() {
+    game.addPlayer(PLAYER_ID);
+
+    game.removePlayer(PLAYER_ID);
+
+    assertThat(game.getPlayers().containsKey(PLAYER_ID)).isFalse();
+  }
 }
