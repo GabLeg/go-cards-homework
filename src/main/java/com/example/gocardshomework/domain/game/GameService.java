@@ -1,4 +1,4 @@
-package com.example.gocardshomework.domain;
+package com.example.gocardshomework.domain.game;
 
 import com.example.gocardshomework.domain.game.Game;
 import com.example.gocardshomework.domain.game.GameFactory;
@@ -12,7 +12,6 @@ public class GameService {
   private final GameRepository gameRepository;
   private final GameFactory gameFactory;
 
-  @Autowired
   public GameService(GameRepository gameRepository, GameFactory gameFactory) {
     this.gameRepository = gameRepository;
     this.gameFactory = gameFactory;

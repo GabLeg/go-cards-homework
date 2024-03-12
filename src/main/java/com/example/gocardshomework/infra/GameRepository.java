@@ -12,7 +12,6 @@ public class GameRepository {
 
   private Map<String, Game> datastore;
 
-  @Autowired
   public GameRepository(Map<String, Game> datastore) {
     this.datastore = datastore;
   }

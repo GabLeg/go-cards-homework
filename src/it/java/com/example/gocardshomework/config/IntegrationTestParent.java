@@ -1,8 +1,9 @@
 package com.example.gocardshomework.config;
 
 import com.example.gocardshomework.GoCardsHomeworkApplication;
+import com.example.gocardshomework.domain.cards.Card;
 import com.example.gocardshomework.domain.game.Game;
-import com.example.gocardshomework.domain.game.GameIdGenerator;
+import com.example.gocardshomework.domain.IdGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -31,23 +32,26 @@ import static org.mockito.Mockito.reset;
 public abstract class IntegrationTestParent {
 
   protected static final String GAME_ID = UUID.randomUUID().toString();
+  protected static final String DECK_ID = UUID.randomUUID().toString();
 
   @Autowired
   private WebApplicationContext context;
   @Autowired
   protected ObjectMapper objectMapper;
   @Autowired
-  protected GameIdGenerator gameIdGenerator;
+  protected IdGenerator idGenerator;
   @Autowired
-  protected Map<String, Game> datastore;
+  protected Map<String, Game> gameDatastore;
+  @Autowired
+  protected Map<String, List<Card>> deckDatastore;
 
   protected MockMvc mockMvc;
 
   @BeforeEach
   void integrationSetUp() {
     this.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-    datastore.clear();
-    reset(gameIdGenerator);
-    given(gameIdGenerator.generate()).willReturn(GAME_ID);
+    gameDatastore.clear();
+    deckDatastore.clear();
+    reset(idGenerator);
   }
 }

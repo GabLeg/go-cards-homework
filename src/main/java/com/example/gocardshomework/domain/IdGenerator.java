@@ -1,11 +1,11 @@
-package com.example.gocardshomework.domain.game;
+package com.example.gocardshomework.domain;
 
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
-public class GameIdGenerator {
+public class IdGenerator {
 
   public String generate() {
     return UUID.randomUUID().toString();

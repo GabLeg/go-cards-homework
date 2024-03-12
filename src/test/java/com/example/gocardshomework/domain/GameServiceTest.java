@@ -2,6 +2,7 @@ package com.example.gocardshomework.domain;
 
 import com.example.gocardshomework.domain.game.Game;
 import com.example.gocardshomework.domain.game.GameFactory;
+import com.example.gocardshomework.domain.game.GameService;
 import com.example.gocardshomework.infra.GameRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
