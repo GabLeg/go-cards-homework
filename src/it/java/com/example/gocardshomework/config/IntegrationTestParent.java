@@ -51,6 +51,7 @@ public abstract class IntegrationTestParent {
   void integrationSetUp() {
     this.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     gameDatastore.clear();
+    deckDatastore.clear();
     reset(idGenerator);
   }
 }

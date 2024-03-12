@@ -2,7 +2,6 @@ package com.example.gocardshomework.domain.cards;
 
 public class Card {
 
-  private String name;
   private Suit suit;
   private Value value;
 

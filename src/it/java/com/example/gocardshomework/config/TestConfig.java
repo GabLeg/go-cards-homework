@@ -12,7 +12,7 @@ public class TestConfig {
 
   @Bean
   @Primary
-  public IdGenerator provideGameFactory() {
+  public IdGenerator provideIdGenerator() {
     return mock(IdGenerator.class);
   }
 }
