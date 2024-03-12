@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -31,5 +32,14 @@ public class GameControllerIT extends IntegrationTestParent {
     datastore.put(GAME_ID, new Game(GAME_ID));
 
     this.mockMvc.perform(post("/api/v1/games")).andExpect(status().isConflict());
+  }
+
+  @Test
+  void givenGameId_whenDeleteGame_thenReturnHttp204() throws Exception {
+    datastore.put(GAME_ID, new Game(GAME_ID));
+
+    this.mockMvc.perform(delete("/api/v1/games/%s".formatted(GAME_ID))).andExpect(status().isNoContent());
+
+    assertThat(datastore.get(GAME_ID)).isNull();
   }
 }

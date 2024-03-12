@@ -50,4 +50,13 @@ class GameRepositoryTest {
 
     assertThrows(GameAlreadyExistsException.class, saveNewGame);
   }
+
+  @Test
+  void givenGameId_whenDeleteGame_thenGameIsRemovedFromDatastore() {
+    datastore.put(GAME_ID, game);
+
+    gameRepository.deleteGame(GAME_ID);
+
+    assertThat(datastore.get(GAME_ID)).isNull();
+  }
 }

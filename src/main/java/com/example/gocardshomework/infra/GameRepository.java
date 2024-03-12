@@ -24,4 +24,8 @@ public class GameRepository {
     }
     datastore.put(gameId, game);
   }
+
+  public void deleteGame(String gameId) {
+    datastore.remove(gameId);
+  }
 }
