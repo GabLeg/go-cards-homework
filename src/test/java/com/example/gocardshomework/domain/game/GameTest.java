@@ -3,6 +3,7 @@ package com.example.gocardshomework.domain.game;
 import com.example.gocardshomework.domain.cards.Card;
 import com.example.gocardshomework.domain.cards.Suit;
 import com.example.gocardshomework.domain.cards.Value;
+import com.example.gocardshomework.domain.exceptions.NotEnoughCardsToDealException;
 import com.example.gocardshomework.domain.exceptions.PlayerAlreadyInGameException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class GameTest {
 
-  private static final List<Card> DECK_OF_CARDS = List.of(new Card(Value.KING, Suit.CLUB));
+  private static final Card A_CARD = new Card(Value.KING, Suit.CLUB);
+  private static final List<Card> DECK_OF_CARDS = List.of(A_CARD);
   private static final String GAME_ID = "gameId123";
   private static final String PLAYER_ID = "playerId123";
 
@@ -61,5 +63,26 @@ class GameTest {
     game.removePlayer(PLAYER_ID);
 
     assertThat(game.getPlayers().containsKey(PLAYER_ID)).isFalse();
+  }
+
+  @Test
+  void whenDealCards_thenEveryPlayerReceiveCard() {
+    game.addPlayer(PLAYER_ID);
+    game.addDeck(DECK_OF_CARDS);
+
+    game.dealCards();
+
+    assertThat(game.getPlayers().get(PLAYER_ID)).containsExactly(A_CARD);
+    assertThat(game.getAvailableCards()).isEmpty();
+    assertThat(game.getUnavailableCards()).containsExactly(A_CARD);
+  }
+
+  @Test
+  void givenTooManyPlayersForTheNumberOfCards_whenDealCards_thenThrowNotEnoughCardsToDealException() {
+    game.addPlayer(PLAYER_ID);
+
+    Executable dealCards = () -> game.dealCards();
+
+    assertThrows(NotEnoughCardsToDealException.class, dealCards);
   }
 }

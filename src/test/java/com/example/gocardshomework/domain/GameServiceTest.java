@@ -97,4 +97,13 @@ class GameServiceTest {
     verify(game).removePlayer(PLAYER_ID);
     verify(gameRepository).updateGame(game);
   }
+
+  @Test
+  void givenGameId_whenDealCards_thenCardsAreDealt() {
+    given(gameRepository.getGameById(GAME_ID)).willReturn(game);
+
+    gameService.dealCards(GAME_ID);
+
+    verify(gameRepository).updateGame(game);
+  }
 }

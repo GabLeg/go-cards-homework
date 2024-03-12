@@ -48,4 +48,10 @@ public class GameService {
     game.removePlayer(playerId);
     gameRepository.updateGame(game);
   }
+
+  public void dealCards(String gameId) {
+    Game game = gameRepository.getGameById(gameId);
+    game.dealCards();
+    gameRepository.updateGame(game);
+  }
 }

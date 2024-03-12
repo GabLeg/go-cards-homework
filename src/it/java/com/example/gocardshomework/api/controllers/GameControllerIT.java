@@ -59,6 +59,25 @@ public class GameControllerIT extends IntegrationTestParent {
   }
 
   @Test
+  void givenGameId_whenDealCards_thenReturnHttp204() throws Exception {
+    Game game = new Game(GAME_ID);
+    game.addPlayer(PLAYER_ID);
+    game.addDeck(EXISTING_DECK);
+    gameDatastore.put(GAME_ID, game);
+
+    this.mockMvc.perform(get("/api/v1/games/%s/deal-cards".formatted(GAME_ID))).andExpect(status().isNoContent());
+  }
+
+  @Test
+  void givenGameIdWithNotEnoughCards_whenDealCards_thenReturnHttp400() throws Exception {
+    Game game = new Game(GAME_ID);
+    game.addPlayer(PLAYER_ID);
+    gameDatastore.put(GAME_ID, game);
+
+    this.mockMvc.perform(get("/api/v1/games/%s/deal-cards".formatted(GAME_ID))).andExpect(status().isBadRequest());
+  }
+
+  @Test
   void givenGameIdAndDeckId_whenAddDeckToGame_thenReturnHttp204() throws Exception {
     gameDatastore.put(GAME_ID, new Game(GAME_ID));
     deckDatastore.put(DECK_ID, EXISTING_DECK);
