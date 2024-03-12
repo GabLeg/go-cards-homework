@@ -36,6 +36,10 @@ public class Game {
     return players;
   }
 
+  public List<Card> retrievePlayerCards(String playerId) {
+    return players.get(playerId);
+  }
+
   public void addDeck(List<Card> newDeck) {
     availableCards.addAll(newDeck);
     Collections.shuffle(availableCards);

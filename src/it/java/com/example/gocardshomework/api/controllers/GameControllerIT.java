@@ -22,7 +22,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class GameControllerIT extends IntegrationTestParent {
 
-  private static final List<Card> EXISTING_DECK = List.of(new Card(Value.EIGHT, Suit.CLUB));
+  private static final Card A_CARD = new Card(Value.EIGHT, Suit.CLUBS);
+  private static final List<Card> EXISTING_DECK = List.of(A_CARD);
   private static final String UNKNOWN_DECK_ID = "unknownDeckId123";
   private static final String UNKNOWN_GAME_ID = "unknownGameId321";
 
@@ -123,5 +124,22 @@ public class GameControllerIT extends IntegrationTestParent {
     gameDatastore.put(GAME_ID, game);
 
     this.mockMvc.perform(delete("/api/v1/games/%s/players/%s".formatted(GAME_ID, PLAYER_ID))).andExpect(status().isNoContent());
+  }
+
+  @Test
+  void givenGameIdAndPlayerId_whenGetPlayerCards_thenReturnHttp200() throws Exception {
+    Game game = new Game(GAME_ID);
+    game.addPlayer(PLAYER_ID);
+    game.addDeck(EXISTING_DECK);
+    game.dealCards();
+    gameDatastore.put(GAME_ID, game);
+
+    MvcResult mvcResult = this.mockMvc.perform(get("/api/v1/games/%s/players/%s/cards".formatted(GAME_ID, PLAYER_ID)))
+                                      .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
+                                      .andExpect(status().isOk())
+                                      .andReturn();
+
+    List<String> list = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), List.class);
+    assertThat(list).contains(A_CARD.toString());
   }
 }
