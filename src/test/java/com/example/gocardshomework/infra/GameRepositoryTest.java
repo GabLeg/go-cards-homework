@@ -2,6 +2,7 @@ package com.example.gocardshomework.infra;
 
 import com.example.gocardshomework.domain.game.Game;
 import com.example.gocardshomework.infra.exceptions.GameAlreadyExistsException;
+import com.example.gocardshomework.infra.exceptions.GameNotAvailableException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,6 +21,7 @@ import static org.mockito.BDDMockito.given;
 class GameRepositoryTest {
 
   private static final String GAME_ID = "gameId345";
+  private static final String UNKNOWN_GAME_ID = "unknownGameId";
 
   @Mock
   private Game game;
@@ -58,5 +60,21 @@ class GameRepositoryTest {
     gameRepository.deleteGame(GAME_ID);
 
     assertThat(datastore.get(GAME_ID)).isNull();
+  }
+
+  @Test
+  void givenGameId_whenGetGameById_thenReturnGame() {
+    datastore.put(GAME_ID, game);
+
+    Game storedGame = gameRepository.getGameById(GAME_ID);
+
+    assertThat(storedGame).isEqualTo(game);
+  }
+
+  @Test
+  void givenUnknownDeckId_whenGetDeckById_thenThrowDeckNotAvailableException() {
+    Executable getGameById = () -> gameRepository.getGameById(UNKNOWN_GAME_ID);
+
+    assertThrows(GameNotAvailableException.class, getGameById);
   }
 }

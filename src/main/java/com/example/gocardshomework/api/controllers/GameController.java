@@ -38,4 +38,10 @@ public class GameController {
   public void deleteGame(@PathVariable("gameId") String gameId) {
     gameService.deleteGame(gameId);
   }
+
+  @PutMapping("/{gameId}/decks/{deckId}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void addDeckToGame(@PathVariable("gameId") String gameId, @PathVariable("deckId") String deckId) {
+    gameService.addDeckToGame(gameId, deckId);
+  }
 }

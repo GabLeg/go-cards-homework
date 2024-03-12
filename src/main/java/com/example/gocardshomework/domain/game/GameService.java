@@ -1,20 +1,23 @@
 package com.example.gocardshomework.domain.game;
 
-import com.example.gocardshomework.domain.game.Game;
-import com.example.gocardshomework.domain.game.GameFactory;
+import com.example.gocardshomework.domain.cards.Card;
+import com.example.gocardshomework.infra.DeckRepository;
 import com.example.gocardshomework.infra.GameRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class GameService {
 
   private final GameRepository gameRepository;
   private final GameFactory gameFactory;
+  private final DeckRepository deckRepository;
 
-  public GameService(GameRepository gameRepository, GameFactory gameFactory) {
+  public GameService(GameRepository gameRepository, GameFactory gameFactory, DeckRepository deckRepository) {
     this.gameRepository = gameRepository;
     this.gameFactory = gameFactory;
+    this.deckRepository = deckRepository;
   }
 
   public Game createGame() {
@@ -25,5 +28,12 @@ public class GameService {
 
   public void deleteGame(String gameId) {
     gameRepository.deleteGame(gameId);
+  }
+
+  public void addDeckToGame(String gameId, String deckId) {
+    Game game = gameRepository.getGameById(gameId);
+    List<Card> newDeck = deckRepository.getDeckById(deckId);
+    game.addDeck(newDeck);
+    gameRepository.updateGame(game);
   }
 }
