@@ -87,4 +87,14 @@ class GameServiceTest {
     verify(game).addPlayer(PLAYER_ID);
     verify(gameRepository).updateGame(game);
   }
+
+  @Test
+  void givenGameIdAndPlayerId_whenRemovePlayer_thenPlayerIsRemovedFromGame() {
+    given(gameRepository.getGameById(GAME_ID)).willReturn(game);
+
+    gameService.removePlayer(GAME_ID, PLAYER_ID);
+
+    verify(game).removePlayer(PLAYER_ID);
+    verify(gameRepository).updateGame(game);
+  }
 }
