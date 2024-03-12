@@ -2,7 +2,7 @@ package com.example.gocardshomework.api.controllers;
 
 import com.example.gocardshomework.api.dto.GameDto;
 import com.example.gocardshomework.config.mapper.ModelMapper;
-import com.example.gocardshomework.domain.GameService;
+import com.example.gocardshomework.domain.game.GameService;
 import com.example.gocardshomework.domain.game.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,6 @@ public class GameController {
   private GameService gameService;
   private ModelMapper mapper;
 
-  @Autowired
   public GameController(GameService gameService,
                         ModelMapper modelMapper) {
     this.gameService = gameService;

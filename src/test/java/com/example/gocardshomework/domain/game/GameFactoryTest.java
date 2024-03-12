@@ -1,5 +1,6 @@
 package com.example.gocardshomework.domain.game;
 
+import com.example.gocardshomework.domain.IdGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,17 +16,17 @@ class GameFactoryTest {
   private static final String GAME_ID = "gameId1234";
 
   @Mock
-  private GameIdGenerator gameIdGenerator;
+  private IdGenerator idGenerator;
   private GameFactory gameFactory;
 
   @BeforeEach
   void setUp() {
-    gameFactory = new GameFactory(gameIdGenerator);
+    gameFactory = new GameFactory(idGenerator);
   }
 
   @Test
   void whenCreateGame_thenNewGameIsCreated() {
-    given(gameIdGenerator.generate()).willReturn(GAME_ID);
+    given(idGenerator.generate()).willReturn(GAME_ID);
 
     Game newGame = gameFactory.createGame();
 
