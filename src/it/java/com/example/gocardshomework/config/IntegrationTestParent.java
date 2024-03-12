@@ -33,6 +33,7 @@ public abstract class IntegrationTestParent {
 
   protected static final String GAME_ID = UUID.randomUUID().toString();
   protected static final String DECK_ID = UUID.randomUUID().toString();
+  protected static final String PLAYER_ID = UUID.randomUUID().toString();
 
   @Autowired
   private WebApplicationContext context;
