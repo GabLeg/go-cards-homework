@@ -39,6 +39,12 @@ public class GameController {
     gameService.deleteGame(gameId);
   }
 
+  @GetMapping("/{gameId}/deal-cards")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void dealCards(@PathVariable("gameId") String gameId) {
+    gameService.dealCards(gameId);
+  }
+
   @PutMapping("/{gameId}/decks/{deckId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void addDeckToGame(@PathVariable("gameId") String gameId, @PathVariable("deckId") String deckId) {
