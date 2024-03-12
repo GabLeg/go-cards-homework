@@ -23,7 +23,7 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 class GameServiceTest {
 
-  private static final List<Card> DECK_OF_CARDS = List.of(new Card(Value.QUEEN, Suit.CLUB));
+  private static final List<Card> DECK_OF_CARDS = List.of(new Card(Value.QUEEN, Suit.CLUBS));
   private static final String GAME_ID = "gameId321";
   private static final String DECK_ID = "deckId321";
   private static final String PLAYER_ID = "player567";
@@ -105,5 +105,15 @@ class GameServiceTest {
     gameService.dealCards(GAME_ID);
 
     verify(gameRepository).updateGame(game);
+  }
+
+  @Test
+  void givenGameIdAndPlayerId_whenRetrievePlayerCards_thenReturnPlayerCards() {
+    given(gameRepository.getGameById(GAME_ID)).willReturn(game);
+    given(game.retrievePlayerCards(PLAYER_ID)).willReturn(DECK_OF_CARDS);
+
+    List<Card> playerCards = gameService.retrievePlayerCards(GAME_ID, PLAYER_ID);
+
+    assertThat(playerCards).isEqualTo(DECK_OF_CARDS);
   }
 }

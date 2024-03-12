@@ -54,4 +54,9 @@ public class GameService {
     game.dealCards();
     gameRepository.updateGame(game);
   }
+
+  public List<Card> retrievePlayerCards(String gameId, String playerId) {
+    Game game = gameRepository.getGameById(gameId);
+    return game.retrievePlayerCards(playerId);
+  }
 }

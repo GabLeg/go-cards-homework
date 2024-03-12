@@ -18,7 +18,7 @@ import static org.mockito.BDDMockito.given;
 @ExtendWith(MockitoExtension.class)
 class DeckServiceTest {
 
-  private static final List<Card> DECK_OF_CARDS = List.of(new Card(Value.ACE, Suit.DIAMOND));
+  private static final List<Card> DECK_OF_CARDS = List.of(new Card(Value.ACE, Suit.DIAMONDS));
   private static final String DECK_ID = "deck456";
 
   @Mock

@@ -23,7 +23,7 @@ import static org.mockito.BDDMockito.given;
 @ExtendWith(MockitoExtension.class)
 class DeckRepositoryTest {
 
-  private static final List<Card> DECK_OF_CARDS = List.of(new Card(Value.ACE, Suit.CLUB));
+  private static final List<Card> DECK_OF_CARDS = List.of(new Card(Value.ACE, Suit.CLUBS));
   private static final String DECK_ID = "deck123";
   private static final String UNKNOWN_DECK_ID = "unknownDeckId";
 

@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class GameTest {
 
-  private static final Card A_CARD = new Card(Value.KING, Suit.CLUB);
+  private static final Card A_CARD = new Card(Value.KING, Suit.CLUBS);
   private static final List<Card> DECK_OF_CARDS = List.of(A_CARD);
   private static final String GAME_ID = "gameId123";
   private static final String PLAYER_ID = "playerId123";
@@ -72,7 +72,7 @@ class GameTest {
 
     game.dealCards();
 
-    assertThat(game.getPlayers().get(PLAYER_ID)).containsExactly(A_CARD);
+    assertThat(game.retrievePlayerCards(PLAYER_ID)).containsExactly(A_CARD);
     assertThat(game.getAvailableCards()).isEmpty();
     assertThat(game.getUnavailableCards()).containsExactly(A_CARD);
   }
@@ -84,5 +84,16 @@ class GameTest {
     Executable dealCards = () -> game.dealCards();
 
     assertThrows(NotEnoughCardsToDealException.class, dealCards);
+  }
+
+  @Test
+  void givenPlayerId_whenRetrievePlayerCards_thenReturnPlayerCards() {
+    game.addPlayer(PLAYER_ID);
+    game.addDeck(DECK_OF_CARDS);
+    game.dealCards();
+
+    List<Card> playerCards = game.retrievePlayerCards(PLAYER_ID);
+
+    assertThat(playerCards).isEqualTo(DECK_OF_CARDS);
   }
 }
