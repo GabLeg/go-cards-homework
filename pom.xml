@@ -15,6 +15,7 @@
 	<description>go-cards-homework</description>
 	<properties>
 		<java.version>21</java.version>
+		<modelmapper.version>3.2.0</modelmapper.version>
 		<truth.version>1.4.2</truth.version>
 	</properties>
 	<dependencies>
@@ -25,6 +26,16 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>${modelmapper.version}</version>
 		</dependency>
 
 		<dependency>
