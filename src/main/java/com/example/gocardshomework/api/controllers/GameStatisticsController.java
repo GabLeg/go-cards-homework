@@ -26,4 +26,9 @@ public class GameStatisticsController {
   public List<PlayerStatisticsDto> getPlayersStatistics(@PathVariable("gameId") String gameId) {
     return mapper.mapList(statisticsService.calculatePlayersStatistics(gameId), PlayerStatisticsDto.class);
   }
+
+  @GetMapping("/undealt")
+  public String getUndeltStatistic(@PathVariable("gameId") String gameId) {
+    return statisticsService.countUndealtCards(gameId);
+  }
 }
