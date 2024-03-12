@@ -1,4 +1,4 @@
-package com.example.gocardshomework.api.health;
+package com.example.gocardshomework.api.controllers.health;
 
 import com.example.gocardshomework.config.IntegrationTestParent;
 import org.junit.jupiter.api.Test;
