@@ -11,7 +11,7 @@ import java.util.Map;
 @Component
 public class GameRepository {
 
-  private Map<String, Game> datastore;
+  private final Map<String, Game> datastore;
 
   public GameRepository(Map<String, Game> datastore) {
     this.datastore = datastore;

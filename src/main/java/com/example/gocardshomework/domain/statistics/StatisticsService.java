@@ -33,7 +33,7 @@ public class StatisticsService {
     int spadesCount = 0;
     int clubsCount = 0;
     int diamondsCount = 0;
-    int hearthsCount = 0;
+    int heartsCount = 0;
     Game game = gameRepository.getGameById(gameId);
     List<Card> undealtCards = new ArrayList<>(game.getAvailableCards());
     for (Card undealtCard : undealtCards) {
@@ -41,11 +41,11 @@ public class StatisticsService {
         case SPADES -> spadesCount++;
         case CLUBS -> clubsCount++;
         case DIAMONDS -> diamondsCount++;
-        default -> hearthsCount++;
+        default -> heartsCount++;
       }
     }
 
-    return "%d spades, %d clubs, %d diamonds, %d hearths".formatted(spadesCount, clubsCount, diamondsCount, hearthsCount);
+    return "%d spades, %d clubs, %d diamonds, %d hearts".formatted(spadesCount, clubsCount, diamondsCount, heartsCount);
   }
 
   private int sumCardsValue(List<Card> cards) {

@@ -4,6 +4,7 @@ import com.example.gocardshomework.domain.cards.Card;
 import com.example.gocardshomework.domain.cards.Suit;
 import com.example.gocardshomework.domain.cards.Value;
 import com.example.gocardshomework.infra.DeckRepository;
+import com.example.gocardshomework.infra.event.EventPublisher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,11 +26,13 @@ class DeckServiceTest {
   private DeckFactory deckFactory;
   @Mock
   private DeckRepository deckRepository;
+  @Mock
+  private EventPublisher eventPublisher;
   private DeckService deckService;
 
   @BeforeEach
   void setUp() {
-    deckService = new DeckService(deckFactory, deckRepository);
+    deckService = new DeckService(deckFactory, deckRepository, eventPublisher);
   }
 
   @Test
